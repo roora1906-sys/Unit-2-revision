@@ -1,0 +1,602 @@
+<title>Unit-2 Introduction to PowerPoint Revision</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;800&display=swap">
+<style>
+/* Layout: one centred column. A "slide sorter" strip of squares shows progress, the question sits on a slide-like card, and every answer opens a lesson note under each option. */
+:root {
+  --bg: #EEF2F7;
+  --surface: #FFFFFF;
+  --ink: #15203B;
+  --muted: #56627F;
+  --line: #D3DBE8;
+  --accent: #F5B700;
+  --on-accent: #15203B;
+  --ok: #14793F;
+  --ok-bg: #E1F4E8;
+  --bad: #B72A38;
+  --bad-bg: #FBE7EA;
+  --focus: #2F5BEA;
+  --sq: #C9D2E3;
+  --display: 'Fredoka', 'Trebuchet MS', system-ui, sans-serif;
+  --body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1424; --surface: #172038; --ink: #EDF1FA; --muted: #9AA7C4; --line: #2A3556;
+    --accent: #FFC933; --on-accent: #14203A; --ok: #5CD491; --ok-bg: #12352A; --bad: #FF8791; --bad-bg: #3A1B26;
+    --focus: #8FA8FF; --sq: #2E3A5C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1424; --surface: #172038; --ink: #EDF1FA; --muted: #9AA7C4; --line: #2A3556;
+  --accent: #FFC933; --on-accent: #14203A; --ok: #5CD491; --ok-bg: #12352A; --bad: #FF8791; --bad-bg: #3A1B26;
+  --focus: #8FA8FF; --sq: #2E3A5C; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.5; }
+.wrap {
+  max-width: 820px; margin: 0 auto; padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+button, input { font: inherit; color: inherit; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; margin: 0; text-wrap: balance; line-height: 1.15; }
+p { margin: 0; }
+.eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; min-height: 36px; }
+.btn {
+  appearance: none; border: 2px solid var(--ink); background: var(--accent); color: var(--on-accent);
+  font-family: var(--display); font-weight: 600; font-size: 19px; padding: 11px 24px; border-radius: 12px; cursor: pointer;
+  box-shadow: 0 3px 0 var(--ink);
+}
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+.btn.ghost { background: transparent; color: var(--ink); box-shadow: none; font-size: 16px; padding: 8px 16px; }
+.btn.small { font-size: 15px; padding: 7px 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+
+/* welcome */
+#welcome h1 { font-size: clamp(30px, 6vw, 46px); margin: 6px 0 12px; }
+.lead { color: var(--muted); max-width: 56ch; margin-bottom: 22px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.field label, legend { font-weight: 800; font-size: 15px; }
+.field input[type=text] { height: 50px; border: 2px solid var(--line); border-radius: 10px; padding: 0 14px; background: var(--bg); font-size: 18px; width: 100%; }
+.field input[type=text]:focus, .field select:focus { border-color: var(--focus); }
+.field select { height: 50px; border: 2px solid var(--line); border-radius: 10px; padding: 0 12px; background: var(--bg); font-size: 18px; width: 100%; }
+.err { color: var(--bad); font-weight: 800; font-size: 15px; }
+fieldset { border: 0; padding: 0; margin: 0 0 20px; min-width: 0; }
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 8px; }
+.mode { display: flex; gap: 10px; align-items: flex-start; border: 2px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; background: var(--bg); }
+.mode:has(input:checked) { border-color: var(--ink); background: var(--surface); box-shadow: 0 3px 0 var(--accent); }
+.mode input { margin-top: 5px; accent-color: var(--ink); }
+.mode b { font-family: var(--display); font-weight: 600; font-size: 18px; display: block; }
+.mode span { color: var(--muted); font-size: 15px; }
+.note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 18px; }
+.how div { border-left: 4px solid var(--accent); padding: 2px 0 2px 12px; font-size: 15px; color: var(--muted); }
+.how b { color: var(--ink); display: block; }
+
+/* play */
+.hud { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 18px; margin-bottom: 10px; }
+.hud .slideno { font-family: var(--display); font-weight: 600; font-size: 20px; }
+.hud .stats { display: flex; gap: 18px; font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+.hud .stats span span { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.sorter { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; }
+.sq { width: 14px; height: 10px; border-radius: 2px; background: var(--sq); }
+.sq.right { background: var(--ok); }
+.sq.wrong { background: var(--bad); }
+.sq.now { background: var(--accent); outline: 2px solid var(--ink); outline-offset: 1px; }
+.qcard { padding: 24px 24px 20px; }
+.qtext { font-family: var(--display); font-weight: 500; font-size: clamp(20px, 3.4vw, 25px); line-height: 1.35; margin-bottom: 18px; overflow-wrap: anywhere; }
+mark { background: var(--accent); color: var(--on-accent); border-radius: 4px; padding: 0 3px; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.optwrap { display: flex; flex-direction: column; }
+.opt {
+  appearance: none; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; align-items: center; text-align: left;
+  width: 100%; background: var(--bg); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.opt:hover { border-color: var(--ink); }
+.chip { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); border: 2px solid var(--line); display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 17px; }
+.optwrap.locked .opt { cursor: default; }
+.optwrap.locked .opt:hover { border-color: var(--line); }
+.optwrap.right .opt { background: var(--ok-bg); border-color: var(--ok); }
+.optwrap.right .chip { background: var(--ok); border-color: var(--ok); color: var(--surface); }
+.optwrap.picked-wrong .opt { background: var(--bad-bg); border-color: var(--bad); }
+.optwrap.picked-wrong .chip { background: var(--bad); border-color: var(--bad); color: var(--surface); }
+.why { font-size: 15px; line-height: 1.45; padding: 8px 14px 4px 64px; color: var(--muted); }
+.why .tag { font-weight: 800; color: var(--ink); margin-right: 4px; }
+.optwrap.right .why .tag { color: var(--ok); }
+.optwrap.picked-wrong .why .tag { color: var(--bad); }
+.fb { border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+.fb.right { background: var(--ok-bg); border: 2px solid var(--ok); }
+.fb.wrong { background: var(--bad-bg); border: 2px solid var(--bad); }
+.fb h3 { font-size: 22px; margin-bottom: 4px; }
+.fb.right h3 { color: var(--ok); }
+.fb.wrong h3 { color: var(--bad); }
+.fb p + p { margin-top: 4px; }
+.fb .ans { font-weight: 800; overflow-wrap: anywhere; }
+.nextbar { position: sticky; bottom: env(safe-area-inset-bottom, 0px); display: flex; justify-content: flex-end; padding: 12px 0 4px; margin-top: 8px; background: linear-gradient(to top, var(--surface) 70%, transparent); }
+
+/* done */
+.scorebox { text-align: center; padding: 8px 0 18px; }
+.big { font-family: var(--display); font-weight: 600; font-size: clamp(56px, 14vw, 92px); line-height: 1; font-variant-numeric: tabular-nums; }
+.big small { font-size: .45em; color: var(--muted); }
+.bar { height: 14px; border-radius: 7px; background: var(--sq); overflow: hidden; max-width: 420px; margin: 14px auto 12px; }
+.bar i { display: block; height: 100%; background: var(--ok); width: 0; transition: width .8s ease; }
+.verdict { font-family: var(--display); font-weight: 600; font-size: 24px; }
+.kpis { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin: 14px 0 6px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.kpis span span { color: var(--muted); font-weight: 600; margin-right: 4px; }
+.savestat { text-align: center; font-weight: 800; font-size: 15px; margin: 8px 0 14px; }
+.savestat.ok { color: var(--ok); }
+.savestat.bad { color: var(--bad); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 16px 0 6px; }
+.send { border: 2px solid var(--ink); border-radius: 14px; padding: 16px 18px 18px; margin: 4px 0 16px; background: var(--bg); }
+.send h2 { font-size: 22px; margin-bottom: 4px; }
+.send p { color: var(--muted); }
+.vals { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0 16px; }
+.vals div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; min-width: 0; }
+.vals dt { font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.vals dd { margin: 0; font-family: var(--display); font-weight: 600; font-size: 22px; overflow-wrap: anywhere; }
+.vals small { font-family: var(--body); font-size: 14px; color: var(--muted); font-weight: 600; }
+a.btn { display: inline-block; text-decoration: none; }
+.review { margin-top: 22px; }
+.review h2 { font-size: 22px; margin-bottom: 10px; }
+.miss { border-top: 1px solid var(--line); padding: 12px 0; }
+.miss .mq { font-weight: 800; overflow-wrap: anywhere; }
+.miss .ma { color: var(--ok); font-weight: 800; overflow-wrap: anywhere; }
+.miss .mn { color: var(--muted); font-size: 14px; }
+textarea { width: 100%; min-height: 84px; border: 2px solid var(--line); border-radius: 10px; background: var(--bg); padding: 10px; font-size: 14px; resize: vertical; }
+
+/* teacher board */
+.tablewrap { overflow-x: auto; margin: 12px 0 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+td.nm { white-space: normal; min-width: 140px; font-weight: 800; }
+.pill { display: inline-block; padding: 1px 10px; border-radius: 99px; font-size: 13px; font-weight: 800; border: 1px solid currentColor; }
+.pill.done { color: var(--ok); }
+.pill.going { color: var(--muted); }
+.tgroup { margin: 18px 0 8px; }
+.tgroup h3 { font-size: 21px; }
+.tgroup .tablewrap { margin: 6px 0 0; }
+td.act { white-space: nowrap; text-align: right; }
+.tgroup table { table-layout: fixed; min-width: 600px; }
+.tgroup th:nth-child(1) { width: 34%; }
+.tgroup th:nth-child(2) { width: 12%; }
+.tgroup th:nth-child(3) { width: 18%; }
+.tgroup th:nth-child(4) { width: 10%; }
+.tgroup th:nth-child(5) { width: 26%; }
+td.act .ask { font-size: 14px; font-weight: 800; margin-right: 8px; color: var(--bad); }
+.btn.danger { border-color: var(--bad); color: var(--bad); background: transparent; box-shadow: none; }
+.btn.danger.solid { background: var(--bad); color: var(--surface); }
+.btn.small + .btn.small { margin-left: 6px; }
+.tmost { margin: 6px 0 10px; padding-left: 20px; }
+.tmost li { margin-bottom: 4px; }
+
+@media (max-width: 520px) {
+  .card, .qcard { padding: 18px 16px 16px; }
+  .why { padding-left: 14px; }
+  .btn { font-size: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } .btn:active { transform: none; } }
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <p class="eyebrow">Grade 5 ICT · Unit 2 · PowerPoint 365</p>
+    <button class="btn ghost small" id="teacherBtn" type="button" hidden>Teacher board</button>
+  </div>
+
+  <section id="welcome">
+    <div class="card">
+      <h1>Unit-2 Introduction to PowerPoint Revision</h1>
+      <p class="lead">There are <span id="nq">27</span> slides. Every question gives you a definition. Find the clue words, then choose the matching answer. After each answer you will see why every option is right or wrong.</p>
+      <form id="startForm" novalidate>
+        <div class="field">
+          <label for="name">Your full name</label>
+          <input id="name" type="text" dir="auto" maxlength="40" autocomplete="off" placeholder="First name and family name" aria-describedby="nameErr">
+          <p class="err" id="nameErr" hidden>Please type your full name, first name and family name.</p>
+        </div>
+        <div class="field">
+          <label for="cls">Your class</label>
+          <select id="cls" aria-describedby="clsErr">
+            <option value="">Choose your class</option>
+            <option value="5G1">5G1</option>
+            <option value="5G2">5G2</option>
+            <option value="5G3">5G3</option>
+          </select>
+          <p class="err" id="clsErr" hidden>Please choose your class.</p>
+        </div>
+        <button class="btn" type="submit">Start the show</button>
+        <p class="note">Your name and score are sent to your teacher when you finish.</p>
+      </form>
+      <div class="how">
+        <div><b>Find the clue</b>Look for the words that match the definition you learned.</div>
+        <div><b>Learn from every answer</b>Right or wrong, you see why each option fits or does not.</div>
+        <div><b>Keep your streak</b>Answers in a row earn bonus points.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="play" hidden>
+    <div class="hud">
+      <p class="slideno" id="slideNo">Slide 1</p>
+      <p class="stats"><span><span>Points</span><b id="pts">0</b></span><span><span>Streak</span><b id="strk">0</b></span></p>
+    </div>
+    <div class="sorter" id="sorter" aria-hidden="true"></div>
+    <div class="card qcard">
+      <p class="qtext" id="qtext" dir="auto"></p>
+      <div class="fb" id="fb" role="status" aria-live="polite" hidden></div>
+      <div class="opts" id="opts"></div>
+      <div class="nextbar" id="nextbar" hidden><button class="btn" id="next" type="button">Next slide</button></div>
+    </div>
+  </section>
+
+  <section id="done" hidden>
+    <div class="card">
+      <div class="scorebox">
+        <p class="eyebrow" id="doneName"></p>
+        <p class="big"><span id="bigScore">0</span><small> / <span id="bigTotal">0</span></small></p>
+        <div class="bar"><i id="barFill"></i></div>
+        <p class="verdict" id="verdict"></p>
+        <p class="kpis"><span><span>Points</span><b id="kPts">0</b></span><span><span>Best streak</span><b id="kBest">0</b></span><span><span>Time</span><b id="kTime">0:00</b></span></p>
+      </div>
+      <p class="savestat" id="saveStat" role="status"></p>
+      <div id="manual" class="send" hidden>
+        <h2>Last step: send your score to your teacher</h2>
+        <p id="formHint">Tap the button below. Your name, class and score are filled in for you. Press Submit in the form.</p>
+        <dl class="vals">
+          <div><dt>Name</dt><dd id="vName" dir="auto"></dd></div>
+          <div><dt>Class</dt><dd id="vCls"></dd></div>
+          <div><dt>Score</dt><dd><span id="vScore"></span> <small id="vOut"></small></dd></div>
+        </dl>
+        <a class="btn" id="formLink" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=s58mGph4PEOYTBhOzzPm2YYvLCPl545On_Hfv_hZ-KhURUFHOVNKNEk4WjdYOEVFSjE0Vk5UMTVJNS4u" target="_blank" rel="noopener">Open the results form</a>
+      </div>
+      <textarea id="summary" readonly hidden dir="auto" aria-label="Your result as text"></textarea>
+      <div class="actions">
+        <button class="btn" id="again" type="button">Play again</button>
+        <button class="btn ghost" id="copyRes" type="button">Copy my result</button>
+      </div>
+      <div class="review" id="review" hidden>
+        <h2>Slides to revise</h2>
+        <div id="missList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="teacher" hidden>
+    <div class="card">
+      <h2>Teacher board</h2>
+      <p class="note" id="tCount"></p>
+      <div id="tGroups"></div>
+      <h3>Most missed slides</h3>
+      <ol class="tmost" id="tMost"></ol>
+      <textarea id="tText" readonly dir="auto" aria-label="Class results as text"></textarea>
+      <div class="actions">
+        <button class="btn" id="tCopy" type="button">Copy class list</button>
+        <button class="btn ghost" id="tBack" type="button">Back to the game</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+const Q = [{"q":"Which term refers to making changes in a document by modifying, arranging and tracking, etc.?","o":["Formatting","Editing","Duplicating","Moving"],"a":1,"w":["Formatting is about how a document looks (font style, size, themes), not about changing its content.","Editing means making changes in a document by modifying, arranging and tracking, etc.","Duplicating means copying text and pasting it in another place.","Moving means cutting text and pasting it in another location."],"c":"making changes in a document by modifying, arranging and tracking"},{"q":"Which term means to change the layout and the appearance of the document through enhancing the font style, size, themes, etc. to make the document look more presentable?","o":["Editing","Modifying","Formatting","Layout"],"a":2,"w":["Editing changes the content by modifying, arranging and tracking. This clue is about appearance.","Modifying is not the term for enhancing font style, size and themes. Those clue words point to formatting.","Formatting changes the layout and appearance by enhancing the font style, size, themes, etc.","Layout is only the arrangement of text and images. Formatting covers font style, size and themes too."],"c":"change the layout and the appearance of the document"},{"q":"Which term means to 'cut' the selected text from one location of a slide and 'paste' it in another location in the same slide or another slide?","o":["Moving","Duplicating","Formatting","Modifying"],"a":0,"w":["Moving means to 'cut' the selected text and 'paste' it in another location.","Duplicating uses 'copy' and 'paste', so the original text stays where it was.","Formatting changes how text looks. It does not move text.","Modifying means changing text. The clue words 'cut' and 'paste' in another location mean moving."],"c":"'cut' the selected text from one location of a slide and 'paste' it in another location"},{"q":"Which term means 'copying' the selected text from one location and 'pasting' it in other location?","o":["Moving","Editing","Formatting","Duplicating"],"a":3,"w":["Moving uses 'cut', so the text leaves its first place. This clue says 'copying'.","Editing means making changes by modifying, arranging and tracking, not copying.","Formatting changes the look of the text. It does not copy it.","Duplicating means 'copying' the selected text and 'pasting' it in another location."],"c":"'copying' the selected text from one location and 'pasting' it in other location"},{"q":"Which is a special command that allows the user to copy the text format and not the text, from one part of the text to another?","o":["Format","Format painter","Font style","Duplicating"],"a":1,"w":["Format means to arrange the text according to a chosen pattern. It is not the special copying command.","Format painter is the special command that copies the text format, and not the text, to another part of the text.","Font style is the formatting of text such as bold, italic or underline. It is not a command that copies formats.","Duplicating copies the text itself. This clue says the format is copied, not the text."],"c":"copy the text format and not the text"},{"q":"Which term refers to the text layout within a paragraph with respect to document margins?","o":["Layout","Style","Alignment","Bullets and numbering"],"a":2,"w":["Layout is the arrangement of text, images and other elements on a whole page or slide, not text inside a paragraph.","Style is the appearance and formatting of text, such as bold or italic.","Alignment is the text layout within a paragraph with respect to the document margins.","Bullets and numbering is used to write text as points. It does not place text between the margins."],"c":"text layout within a paragraph with respect to document margins"},{"q":"Which keyword means the arrangement of text, images, and other elements on a page or slide?","o":["Margins","Style","Modifying","Layout"],"a":3,"w":["Margins are the blank spaces near the edges of the page, not the arrangement of elements.","Style is the appearance and formatting of text, such as bold or italic.","Modifying means changing something. It does not name how things are arranged on a slide.","Layout means the arrangement of text, images, and other elements on a page or slide."],"c":"arrangement of text, images, and other elements on a page or slide"},{"q":"Which keyword means the blank spaces near the edges of the page?","o":["Layout","Style","Margins","Visual effect"],"a":2,"w":["Layout is the arrangement of text, images and other elements, not the empty space at the edges.","Style is the appearance and formatting of text, such as bold or italic.","Margins are the blank spaces near the edges of the page.","A visual effect happens when you move from one slide to the next. It is not about the page edges."],"c":"blank spaces near the edges of the page"},{"q":"Which term is the visual effect that occurs when you move from one slide to the next during a presentation?","o":["Slide show","Slide transition","Theme","Background style"],"a":1,"w":["A slide show is when the presentation is shown. The clue is about the effect between two slides.","A slide transition is the visual effect that occurs when you move from one slide to the next.","A theme is a template with a specific design for the slides. It is not an effect between slides.","Background style sets the colour of a slide's background."],"c":"visual effect that occurs when you move from one slide to the next"},{"q":"Which slide is called the Title slide?","o":["The last slide of a presentation","The first slide of a presentation","The slide in the middle of a presentation","Every slide in a presentation"],"a":1,"w":["The last slide is not the Title slide. The Title slide comes first.","The Title slide is the first slide of a presentation.","The Title slide is not in the middle. It is the very first slide.","Only the first slide is the Title slide. The other slides are not."],"c":"Title slide"},{"q":"What is the difference between F5 and Shift + F5?","o":["F5 starts the slide show from the current slide. Shift + F5 starts it from the first slide.","F5 starts the slide show from the first slide. Shift + F5 starts it from the current slide.","F5 adds a new slide. Shift + F5 saves the presentation.","There is no difference. Both do the same thing."],"a":1,"w":["This is the wrong way round. F5 starts from the first slide and Shift + F5 starts from the current slide.","F5 starts the slide show from the first slide. Shift + F5 starts it from the current slide.","F5 and Shift + F5 both start the slide show. They do not add a slide or save the presentation.","They are different. F5 starts from the first slide and Shift + F5 starts from the current slide."],"c":"F5 and Shift + F5"},{"q":"Which term refers to the design or the shape of the text as it appears on the screen?","o":["Font","Font size","Font style","Font colour"],"a":0,"w":["Font is the design or the shape of the text as it appears on the screen.","Font size is how large or small the text is, not its shape.","Font style is the formatting of text such as bold, italic or underline.","Font colour is the colour applied to the text."],"c":"design or the shape of the text"},{"q":"Which term refers to the formatting of text, such as bold, italic, or underline?","o":["Font","Font style","Font size","Font colour"],"a":1,"w":["Font is the design or shape of the text, not bold, italic or underline.","Font style is the formatting of text, such as bold, italic or underline.","Font size is how large or small the text is.","Font colour is the colour applied to text."],"c":"formatting of text, such as bold, italic, or underline"},{"q":"Which term refers to the colour applied to text to enhance its appearance and readability?","o":["Font style","Font","Font colour","Font size"],"a":2,"w":["Font style is bold, italic or underline. It does not name a colour.","Font is the design or shape of the text, not its colour.","Font colour is the colour applied to text to enhance its appearance and readability.","Font size is how large or small the text is."],"c":"colour applied to text"},{"q":"Which list shows the four types of text alignment?","o":["Left, right, centre and justified","Top, bottom, left and right","Bold, italic, underline and centre","Left, right, front and back"],"a":0,"w":["Left, right, centre and justified are the four types of text alignment.","Top and bottom are not two of the four types. The four are left, right, centre and justified.","Bold, italic and underline are font styles, not alignment types.","Front and back are not alignment types. The four are left, right, centre and justified."],"c":"four types of text alignment"},{"q":"Which keyboard shortcut is used for Centre Alignment?","o":["Ctrl+L","Ctrl+R","Ctrl+J","Ctrl+E"],"a":3,"w":["Ctrl + L is the shortcut for left alignment.","Ctrl + R is the shortcut for right alignment.","Ctrl + J is the shortcut for justified alignment.","Ctrl + E is the shortcut for centre alignment."],"c":"Centre Alignment"},{"q":"Sometimes you need to write your text as points. Which feature allows you to do this in the form of bullets and numbers?","o":["Text alignment","Bullets and numbering","Format painter","Slide transition"],"a":1,"w":["Text alignment is the text layout within a paragraph with respect to the margins. It does not make points.","Bullets and numbering lets you write your text as points, in the form of bullets and numbers.","Format painter copies the text format to another part of the text. It does not make points.","A slide transition is the effect when you move from one slide to the next."],"c":"in the form of bullets and numbers"},{"q":"Which is a template with a specific design that can be applied to a slide or to the entire presentation?","o":["Theme","Layout","Background style","SmartArt"],"a":0,"w":["A theme is a template with a specific design that can be applied to a slide or to the entire presentation.","Layout is the arrangement of text, images and other elements on a slide. It is not a design template.","Background style only sets the colour of a slide's background. A theme is a whole design.","SmartArt adds graphics grouped under categories. It is not a design template."],"c":"template with a specific design that can be applied to a slide or to the entire presentation"},{"q":"Which command helps you change or set the colour of a slide's background?","o":["Theme","Format painter","Background style","Text alignment"],"a":2,"w":["A theme is a whole design template. This clue is only about the background colour.","Format painter copies the text format to another part of the text.","Background style is the command that changes or sets the colour of a slide's background.","Text alignment is the text layout within a paragraph. It does not change a background."],"c":"change or set the colour of a slide's background"},{"q":"Which tab do you click on to change the slide theme?","o":["Home","Design","Insert","Transitions"],"a":1,"w":["The Home tab has the Clipboard group (Cut, Copy and Paste) and the text formatting tools.","The Design tab is where you change the slide theme and the background style.","The Insert tab adds things to a slide, such as pictures, ClipArt, audio and video.","The Transitions tab is for the effect between one slide and the next."],"c":"change the slide theme"},{"q":"Which feature allows the user to add graphics to the presentation grouped under different categories?","o":["ClipArt","Pictures","Format painter","SmartArt"],"a":3,"w":["ClipArt is a file of general-purpose graphics such as animations and cartoons.","Pictures inserts a picture file into the slide. It is not the feature that groups graphics under categories.","Format painter copies the text format to another part of the text. It does not add graphics.","SmartArt lets the user add graphics to the presentation grouped under different categories."],"c":"add graphics to the presentation grouped under different categories"},{"q":"Files of general-purpose graphics consisting of animations and cartoons are called as ______.","o":["ClipArt","SmartArt","Theme","Pictures"],"a":0,"w":["ClipArt means files of general-purpose graphics consisting of animations and cartoons.","SmartArt adds graphics grouped under different categories. It is not the animations and cartoons files.","A theme is a template with a specific design for slides.","Pictures inserts a picture file into a slide. The clue words are animations and cartoons."],"c":"animations and cartoons"},{"q":"Which is the correct way to insert audio or video files in a presentation?","o":["Click on Design tab, in the Media group, choose Video or Audio option from the drop-down list.","Click on Insert tab, in the Media group, choose Video or Audio option from the drop-down list.","Click on Insert tab, in the Paragraph group, choose Video or Audio option from the drop-down list.","Click on Home tab, in the Clipboard group, choose Video or Audio option from the drop-down list."],"a":1,"w":["Wrong tab. Audio and video are inserted from the Insert tab, not the Design tab.","Insert tab, Media group, then Video or Audio from the drop-down list. This is the right path.","Right tab, wrong group. Video and Audio are in the Media group, not the Paragraph group.","Wrong tab and wrong group. The Home tab has the Clipboard group for Cut, Copy and Paste."],"tip":"Check both parts of each answer: the tab and the group."},{"q":"The keyboard shortcut used to add a new slide to the presentation is ______.","o":["Ctrl + N","Ctrl + M","Ctrl + S","Ctrl + A"],"a":1,"w":["Ctrl + N opens a new presentation. It does not add a slide to this one.","Ctrl + M adds a new slide to the presentation.","Ctrl + S saves the presentation.","Ctrl + A selects everything (Select All)."],"c":"add a new slide"},{"q":"Which keyboard shortcut is used for Cut?","o":["Ctrl + C","Ctrl + V","Ctrl + A","Ctrl + X"],"a":3,"w":["Ctrl + C is the shortcut for copy, not cut.","Ctrl + V is the shortcut for paste, not cut.","Ctrl + A is the shortcut for Select All.","Ctrl + X is the shortcut for cut."],"c":"Cut"},{"q":"Which keyboard shortcut is used for Copy?","o":["Ctrl + X","Ctrl + C","Ctrl + V","Ctrl + B"],"a":1,"w":["Ctrl + X is the shortcut for cut, not copy.","Ctrl + C is the shortcut for copy.","Ctrl + V is the shortcut for paste, not copy.","Ctrl + B is the shortcut for bold."],"c":"Copy"},{"q":"Which keyboard shortcut is used for Paste?","o":["Ctrl + C","Ctrl + X","Ctrl + U","Ctrl + V"],"a":3,"w":["Ctrl + C is the shortcut for copy, not paste.","Ctrl + X is the shortcut for cut, not paste.","Ctrl + U is the shortcut for underline.","Ctrl + V is the shortcut for paste."],"c":"Paste"}];
+const $ = id => document.getElementById(id);
+const el = (tag, cls) => { const e = document.createElement(tag); if (cls) e.className = cls; return e; };
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const use = n => (window.claude && window.claude.use) ? window.claude.use(n).catch(() => null) : Promise.resolve(null);
+const dbP = use('db');
+const userP = use('user');
+let dbReady = null;
+dbP.then(d => { dbReady = !!d; });
+const LETTERS = 'ABCD';
+const PRAISE = ['Correct!', 'Nice clue hunting!', 'Spot on!', 'You found it!', 'Great work!'];
+
+const S = { name: '', cls: '', mode: 'full', order: [], i: 0, correct: 0, points: 0, streak: 0, best: 0, missed: [], marks: [], startedAt: 0, docId: '', locked: false, opts: [] };
+let startWrite = Promise.resolve(false);
+
+function show(id) {
+  for (const s of ['welcome', 'play', 'done', 'teacher']) $(s).hidden = s !== id;
+  window.scrollTo(0, 0);
+}
+
+/* ---------- saving ---------- */
+const newId = () => 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const fmtTime = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+function payload(status) {
+  const secs = Math.round((Date.now() - S.startedAt) / 1000);
+  const d = {
+    name: S.name, cls: S.cls, mode: S.mode, total: S.order.length, correct: S.correct, points: S.points,
+    bestStreak: S.best, missed: S.missed.map(q => q + 1), status, startedAt: new Date(S.startedAt).toISOString(), secs
+  };
+  if (status === 'done') d.finishedAt = new Date().toISOString();
+  return d;
+}
+async function writeDoc(status) {
+  const id = S.docId, data = payload(status);
+  const db = await dbP;
+  if (!db) return false;
+  try { await db.doc('results/' + id).set(data); return true; } catch (e) { return false; }
+}
+
+/* ---------- game ---------- */
+function startGame(e) {
+  e.preventDefault();
+  const name = $('name').value.trim().replace(/\s+/g, ' ');
+  const cls = $('cls').value;
+  const okName = name.split(' ').filter(w => w.length >= 2).length >= 2;
+  $('nameErr').hidden = okName;
+  $('clsErr').hidden = !!cls;
+  if (!okName) { $('name').focus(); return; }
+  if (!cls) { $('cls').focus(); return; }
+  const mode = 'full';
+  let order = shuffle([...Q.keys()]);
+  Object.assign(S, { name, cls, mode, order, i: 0, correct: 0, points: 0, streak: 0, best: 0, missed: [], marks: [], startedAt: Date.now(), docId: newId(), locked: false });
+  startWrite = writeDoc('started');
+  const sorter = $('sorter'); sorter.replaceChildren();
+  order.forEach(() => sorter.append(el('span', 'sq')));
+  show('play');
+  renderQ();
+}
+
+function setQuestion(q) {
+  const box = $('qtext'); box.replaceChildren();
+  const k = q.c ? q.q.indexOf(q.c) : -1;
+  if (k < 0 || !S.locked) { box.textContent = q.q; return; }
+  const m = el('mark'); m.textContent = q.c;
+  box.append(q.q.slice(0, k), m, q.q.slice(k + q.c.length));
+}
+
+function hud() {
+  $('slideNo').textContent = 'Slide ' + (S.i + 1) + ' of ' + S.order.length;
+  $('pts').textContent = S.points;
+  $('strk').textContent = S.streak;
+  [...$('sorter').children].forEach((sq, n) => {
+    sq.className = 'sq' + (S.marks[n] ? ' ' + S.marks[n] : n === S.i ? ' now' : '');
+  });
+}
+
+function renderQ() {
+  const q = Q[S.order[S.i]];
+  S.locked = false;
+  S.opts = shuffle([0, 1, 2, 3]);
+  setQuestion(q);
+  $('fb').hidden = true;
+  $('nextbar').hidden = true;
+  const list = $('opts'); list.replaceChildren();
+  S.opts.forEach((k, pos) => {
+    const wrap = el('div', 'optwrap'); wrap.dataset.k = k;
+    const b = el('button', 'opt'); b.type = 'button';
+    const chip = el('span', 'chip'); chip.textContent = LETTERS[pos];
+    const t = el('span'); t.textContent = q.o[k]; t.dir = 'auto';
+    b.append(chip, t);
+    b.addEventListener('click', () => pick(k));
+    const why = el('p', 'why'); why.hidden = true;
+    wrap.append(b, why);
+    list.append(wrap);
+  });
+  hud();
+}
+
+function pick(k) {
+  if (S.locked) return;
+  S.locked = true;
+  const qi = S.order[S.i], q = Q[qi];
+  const right = k === q.a;
+  let gained = 0;
+  if (right) {
+    gained = 10 + Math.min(S.streak, 5) * 2;
+    S.correct++; S.points += gained; S.streak++; S.best = Math.max(S.best, S.streak);
+  } else { S.streak = 0; S.missed.push(qi); }
+  S.marks[S.i] = right ? 'right' : 'wrong';
+
+  [...$('opts').children].forEach(wrap => {
+    const o = +wrap.dataset.k;
+    wrap.classList.add('locked');
+    wrap.querySelector('.opt').setAttribute('aria-disabled', 'true');
+    const why = wrap.querySelector('.why');
+    const tag = el('span', 'tag');
+    if (o === q.a) { wrap.classList.add('right'); tag.textContent = 'Correct answer.'; }
+    else if (o === k) { wrap.classList.add('picked-wrong'); tag.textContent = 'You picked this. Why it is wrong:'; }
+    else { tag.textContent = 'Why not:'; }
+    why.replaceChildren(tag, q.w[o]);
+    why.hidden = false;
+  });
+
+  setQuestion(q);
+  const pos = S.opts.indexOf(q.a);
+  const fb = $('fb'); fb.className = 'fb ' + (right ? 'right' : 'wrong'); fb.replaceChildren();
+  const h = el('h3'); h.textContent = right ? PRAISE[Math.floor(Math.random() * PRAISE.length)] : 'Not quite.';
+  const a = el('p', 'ans'); a.textContent = 'Correct answer: ' + LETTERS[pos] + '. ' + q.o[q.a];
+  fb.append(h, a);
+  if (right) { const p = el('p'); p.textContent = '+' + gained + ' points' + (S.streak > 1 ? ' · streak of ' + S.streak : ''); fb.append(p); }
+  const clue = el('p');
+  clue.textContent = q.c ? 'The clue is highlighted in the question above.' : q.tip;
+  fb.append(clue);
+  fb.hidden = false;
+
+  const last = S.i + 1 >= S.order.length;
+  $('next').textContent = last ? 'See my results' : 'Next slide';
+  $('nextbar').hidden = false;
+  hud();
+  fb.scrollIntoView({ block: 'nearest' });
+  $('next').focus({ preventScroll: true });
+}
+
+function next() {
+  if (!S.locked) return;
+  if (S.i + 1 >= S.order.length) { finish(); return; }
+  S.i++; renderQ(); window.scrollTo(0, 0);
+}
+
+function verdictFor(p) {
+  if (p >= 90) return 'Slide master! Brilliant work.';
+  if (p >= 75) return 'Great presenting! Almost perfect.';
+  if (p >= 50) return 'Good start. Revise the slides below and try again.';
+  return 'Keep practising. Read each clue again and replay.';
+}
+
+function summaryText() {
+  const d = new Date().toLocaleDateString();
+  return 'Unit-2 Introduction to PowerPoint Revision | ' + S.name + ' (' + S.cls + ')' + ' | ' + S.correct + '/' + S.order.length + ' | ' + S.points + ' points | ' + d;
+}
+
+const FORM_BASE = 'https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=s58mGph4PEOYTBhOzzPm2YYvLCPl545On_Hfv_hZ-KhURUFHOVNKNEk4WjdYOEVFSjE0Vk5UMTVJNS4u';
+const FORM_Q = { name: 'r6ff3cccc8ecc4b40acc14cb128ad0b77', cls: 'r3f47ca8f1cc5492299933444c00815f4', score: 'r7c57abadc6c24971b56b6bb4ff4187f2' };
+function formUrl() {
+  return FORM_BASE + '&' + FORM_Q.name + '=' + encodeURIComponent(S.name)
+    + '&' + FORM_Q.cls + '=' + encodeURIComponent('"' + S.cls + '"')
+    + '&' + FORM_Q.score + '=' + S.correct;
+}
+
+async function finish() {
+  let opened = null;
+  if (dbReady !== true) { try { opened = window.open(formUrl(), '_blank'); if (opened) opened.opener = null; } catch (e) { opened = null; } }
+  $('formHint').textContent = opened
+    ? 'The form opened in a new tab with your name, class and score filled in. Press Submit there. If you do not see it, tap the button below.'
+    : 'Tap the button below. Your name, class and score are filled in for you. Press Submit in the form.';
+  const total = S.order.length, pct = Math.round(S.correct / total * 100);
+  const secs = Math.round((Date.now() - S.startedAt) / 1000);
+  $('doneName').textContent = S.name + ' · ' + S.cls;
+  $('bigScore').textContent = S.correct; $('bigTotal').textContent = total;
+  $('verdict').textContent = verdictFor(pct);
+  $('kPts').textContent = S.points; $('kBest').textContent = S.best; $('kTime').textContent = fmtTime(secs);
+  $('barFill').style.width = '0';
+  $('summary').value = summaryText();
+  $('formLink').href = formUrl();
+  $('vName').textContent = S.name; $('vCls').textContent = S.cls; $('vScore').textContent = S.correct; $('vOut').textContent = '(out of ' + total + ')';
+  const miss = $('missList'); miss.replaceChildren();
+  S.missed.forEach(qi => {
+    const q = Q[qi], row = el('div', 'miss');
+    const n = el('p', 'mn'); n.textContent = 'Question ' + (qi + 1);
+    const t = el('p', 'mq'); t.textContent = q.q; t.dir = 'auto';
+    const a = el('p', 'ma'); a.textContent = 'Correct answer: ' + q.o[q.a];
+    row.append(n, t, a); miss.append(row);
+  });
+  $('review').hidden = S.missed.length === 0;
+  const st = $('saveStat'); st.className = 'savestat'; st.textContent = 'Sending your score to your teacher...';
+  $('manual').hidden = true;
+  show('done');
+  requestAnimationFrame(() => { $('barFill').style.width = pct + '%'; });
+  await startWrite;
+  const ok = await writeDoc('done');
+  if (ok) { st.className = 'savestat ok'; st.textContent = 'Your score was sent to your teacher.'; }
+  else { st.className = 'savestat bad'; st.textContent = 'Your score is not sent yet. Please send it with the form below.'; $('manual').hidden = false; }
+}
+
+async function copyText(text, area, btn) {
+  const old = btn.textContent;
+  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
+  catch (e) { area.hidden = false; area.focus(); area.select(); btn.textContent = 'Press Ctrl + C to copy'; }
+  setTimeout(() => { btn.textContent = old; }, 2200);
+}
+
+/* ---------- teacher board ---------- */
+let tUnsub = null;
+async function initTeacher() {
+  const u = await userP;
+  let teacher = false;
+  try { teacher = !!(u && ((u.isOwner && u.isOwner()) || (u.canEdit && u.canEdit()))); } catch (e) {}
+  if (teacher) $('teacherBtn').hidden = false;
+}
+async function openTeacher() {
+  show('teacher');
+  const db = await dbP;
+  if (!db) { $('tCount').textContent = 'The database is not available in this view.'; return; }
+  if (tUnsub) return;
+  tUnsub = db.collection('results').orderBy('startedAt', 'desc').limit(500).onSnapshot(renderBoard, () => { $('tCount').textContent = 'Could not load results.'; tUnsub = null; });
+}
+let tRows = [], pendingDel = null;
+const CLASS_ORDER = ['5G1', '5G2', '5G3'];
+function renderBoard(snap) {
+  tRows = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+  if (pendingDel && !tRows.some(r => r.id === pendingDel)) pendingDel = null;
+  drawBoard();
+}
+async function deleteRecord(id) {
+  const db = await dbP;
+  pendingDel = null;
+  if (!db) { drawBoard(); return; }
+  try { await db.doc('results/' + id).delete(); }
+  catch (e) { $('tCount').textContent = 'Could not delete that record. Try again.'; drawBoard(); }
+}
+function btn(label, cls, onClick, aria) {
+  const b = el('button', 'btn small ' + cls); b.type = 'button'; b.textContent = label;
+  if (aria) b.setAttribute('aria-label', aria);
+  b.addEventListener('click', onClick); return b;
+}
+function drawBoard() {
+  const rows = tRows;
+  const done = rows.filter(r => r.status === 'done').length;
+  $('tCount').textContent = rows.length + ' students started, ' + done + ' finished.';
+  const groups = {};
+  rows.forEach(r => { const k = r.cls || 'No class'; (groups[k] = groups[k] || []).push(r); });
+  const keys = Object.keys(groups).sort((x, y) => {
+    const i = CLASS_ORDER.indexOf(x), j = CLASS_ORDER.indexOf(y);
+    return (i < 0 ? 99 : i) - (j < 0 ? 99 : j) || x.localeCompare(y);
+  });
+  const host = $('tGroups'); host.replaceChildren();
+  const lines = [], miss = {};
+  if (!keys.length) { const p = el('p', 'note'); p.textContent = 'No students yet. Results appear here as students start.'; host.append(p); }
+  keys.forEach(k => {
+    const list = groups[k].slice().sort((x, y) => (x.name || '').localeCompare(y.name || ''));
+    const fin = list.filter(r => r.status === 'done').length;
+    const box = el('div', 'tgroup');
+    const h = el('h3'); h.textContent = k + ' · ' + list.length + (list.length === 1 ? ' student' : ' students') + ', ' + fin + ' finished';
+    const wrap = el('div', 'tablewrap'), table = el('table'), thead = el('thead'), hr = el('tr');
+    ['Name', 'Score', 'Status', 'Time', ''].forEach(x => { const th = el('th'); th.textContent = x; hr.append(th); });
+    thead.append(hr); table.append(thead);
+    const body = el('tbody');
+    lines.push(k);
+    list.forEach(r => {
+      const tr = el('tr');
+      const nm = el('td', 'nm'); nm.textContent = r.name || ''; nm.dir = 'auto'; tr.append(nm);
+      const sc = el('td'); sc.textContent = r.status === 'done' ? r.correct + '/' + r.total : '-'; tr.append(sc);
+      const st = el('td'), pill = el('span', 'pill ' + (r.status === 'done' ? 'done' : 'going'));
+      pill.textContent = r.status === 'done' ? 'Finished' : 'In progress'; st.append(pill); tr.append(st);
+      const tm = el('td'); tm.textContent = r.status === 'done' && r.secs != null ? fmtTime(r.secs) : '-'; tr.append(tm);
+      const ac = el('td', 'act');
+      if (pendingDel === r.id) {
+        const ask = el('span', 'ask'); ask.textContent = 'Delete this record?'; ac.append(ask);
+        ac.append(btn('Yes, delete', 'danger solid', () => deleteRecord(r.id), 'Yes, delete the record for ' + (r.name || 'this student')));
+        ac.append(btn('Keep', 'ghost', () => { pendingDel = null; drawBoard(); }));
+      } else {
+        ac.append(btn('Delete', 'danger', () => { pendingDel = r.id; drawBoard(); }, 'Delete the record for ' + (r.name || 'this student')));
+      }
+      tr.append(ac); body.append(tr);
+      lines.push(r.name + ' | ' + (r.status === 'done' ? r.correct + '/' + r.total : 'in progress'));
+      (r.missed || []).forEach(n => { miss[n] = (miss[n] || 0) + 1; });
+    });
+    lines.push('');
+    table.append(body); wrap.append(table); box.append(h, wrap); host.append(box);
+  });
+  const top = Object.entries(miss).sort((x, y) => y[1] - x[1]).slice(0, 5);
+  const ol = $('tMost'); ol.replaceChildren();
+  if (!top.length) { const li = el('li'); li.textContent = 'No missed slides yet.'; ol.append(li); }
+  top.forEach(([n, c]) => { const q = Q[n - 1]; if (!q) return; const li = el('li'); li.textContent = q.q + ' (' + c + (c === 1 ? ' student)' : ' students)'); ol.append(li); });
+  $('tText').value = lines.join('\n').trim();
+}
+
+/* ---------- wiring ---------- */
+$('startForm').addEventListener('submit', startGame);
+$('next').addEventListener('click', next);
+$('again').addEventListener('click', () => { show('welcome'); });
+$('copyRes').addEventListener('click', () => copyText(summaryText(), $('summary'), $('copyRes')));
+$('teacherBtn').addEventListener('click', openTeacher);
+$('tBack').addEventListener('click', () => show('welcome'));
+$('tCopy').addEventListener('click', () => copyText($('tText').value, $('tText'), $('tCopy')));
+document.addEventListener('keydown', e => {
+  if ($('play').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (!S.locked) {
+    const m = { a: 0, b: 1, c: 2, d: 3, '1': 0, '2': 1, '3': 2, '4': 3 }[k];
+    if (m !== undefined) pick(S.opts[m]);
+  } else if (k === 'enter' && document.activeElement !== $('next')) { e.preventDefault(); next(); }
+});
+$('nq').textContent = Q.length;
+initTeacher();
+</script>
